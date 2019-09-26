@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # frontend
 
 > A Vue.js project
@@ -19,3 +20,6 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# ActivityAndDiet
+>>>>>>> f7ef4495292be4e52d26f83809b152871d500afa
