@@ -7,7 +7,7 @@
       selectable
       :select-mode="selectMode"
       selected-variant="success"
-      :items="this.info.data.data"
+      :items="activityStore"
       :fields="fields"
       @row-selected="onRowSelected"
       responsive="sm"
@@ -25,20 +25,8 @@
       </template>
     </b-table>
     <div  v-if="selected">
-      <b-button size="sm" @click="addActivity">Dodaj odabranu aktivnost</b-button>
-      <input v-model="value" placeholder="vreme u minutima" type="number" name="minuts" min="1" max="2000"> u minutima
+      <b-button size="sm" @click="addActivity">Obriši</b-button>
       </div>
-  <div class="overflow-auto">
-    <b-pagination 
-      v-model="currentPage"
-      align="center" 
-      size="md" 
-      :total-rows="rows" 
-      :per-page="perPage"
-      @input="next"
-    ></b-pagination>
-    </div>
-
   </div>
 </template>
 
@@ -50,23 +38,19 @@ import { mapState, mapMutations } from 'vuex'
     data() {
       return {
         value: 60,
-        rows: 5,
+        rows: 10,
         perPage: 5,
         currentPage: 1,
         info: [],
         modes: ['multi', 'single', 'range'],
         fields: [
-          {          
-            key: 'selected',
-            label: 'Izabrano'
-          },
           {
            key: 'name',
            label: "Aktivnost" 
           },
           {
-           key: 'caloriesBurnedHour',
-           label: 'Potrošene kalorije za sat vremena'
+           key: 'minutes',
+           label: 'Vreme u minutima'
           }
         ],
         selectMode: 'single',
@@ -79,20 +63,23 @@ import { mapState, mapMutations } from 'vuex'
       ...mapMutations([
           'ADD_ACTIVITY'
       ]),
+      
       addActivity: function() {
         this.selected[0]['minutes'] = this.value
         this.ADD_ACTIVITY(this.selected[0])
         this.selected = null
       },
+
       onRowSelected(items) {
         this.selected = items
       },
+
       clearSelected() {
         this.$refs.selectableTable.clearSelected()
       }
     },
-    mounted () {
-      axios
+      mounted () {
+        axios
       .get('http://127.0.0.1:5001/api/Aktivnosti')
       .then(response => { this.info = response })
     },

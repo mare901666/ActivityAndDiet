@@ -3,7 +3,7 @@
     <section class="form-simple">
         <mdb-row>
         <mdb-col md="5">
-            <mdb-card>
+            <mdb-card>  
             <div class="header pt-3 grey lighten-2">
                 <mdb-row class="d-flex justify-content-start">
                 <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Registracija</h3>
@@ -15,6 +15,10 @@
                 <mdb-input label="Težina(kg)" type="text" containerClass="mb-0"/>
                 <mdb-input label="Visina(cm)" type="text" containerClass="mb-0"/>
                 <mdb-input label="Godine" type="text" containerClass="mb-0"/>
+                <b-form-group label="Odaberite pol">
+      <b-form-radio v-model="izabrano" name="some-radios" value="M">Muško</b-form-radio>
+      <b-form-radio v-model="izabrano" name="some-radios" value="F">Žensko</b-form-radio>
+    </b-form-group>
                 <div class="text-center mb-4 mt-5">
                 <mdb-btn color="blue" type="button" class="btn-block z-depth-2">Registruj se</mdb-btn>
                 </div>

@@ -19,5 +19,8 @@ module.exports = {
     img: 'src',
     image: 'xlink:href',
     lintOnSave: false
+  },
+  devServer: {
+    proxy: 'http://localhost:5001/',
   }
 }

@@ -9,11 +9,11 @@
                 </mdb-row>
             </div>
             <mdb-card-body class="mx-4 mt-4">
-                <mdb-input label="Unesite email" type="text"/>
-                <mdb-input label="Unesite lozinku" type="password" containerClass="mb-0"/>
+                <mdb-input v-model="email" label="Unesite email" type="text"/>
+                <mdb-input v-model="password" label="Unesite lozinku" type="password" containerClass="mb-0"/>
                 <p class="font-small grey-text d-flex justify-content-end">Zaboravljena <a href="#" class="dark-grey-text font-weight-bold ml-1"> lozinka?</a></p>
                 <div class="text-center mb-4 mt-5">
-                <mdb-btn color="blue" type="button" class="btn-block z-depth-2">Prijavi se</mdb-btn>
+                <mdb-btn color="blue" type="button" @click="prijava" class="btn-block z-depth-2">Prijavi se</mdb-btn>
                 </div>
                 <p class="font-small grey-text d-flex justify-content-center">Nemate nalog? <a href="#" class="dark-grey-text font-weight-bold ml-1"> Registruj se</a></p>
             </mdb-card-body>
@@ -25,17 +25,69 @@
 
 
 <script>
-  import { mdbRow, mdbCol, mdbCard, mdbCardBody, mdbInput, mdbBtn, mdbIcon } from 'mdbvue';
+import Router from 'vue-router'
+import { mdbRow, mdbCol, mdbCard, mdbCardBody, mdbInput, mdbBtn, mdbIcon } from 'mdbvue';
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
   export default {
     name: 'FormsPage',
     components: {
       mdbRow,
       mdbCol,
       mdbCard,
-      mdbCardBody,
+      mdbCardBody,    
       mdbInput,
       mdbBtn,
       mdbIcon
+    },
+    data: () => {
+      return {
+        email: '',
+        password: ''
+      }
+    },
+    created(){
+          if(this.$store.state.login === "Odjavi se")
+          {
+            alert("Uspešno ste se odjavili")
+          }
+
+          this.MUTATION_LOGIN('Prijavi se')
+          this.MUTATION_REGISTRATION('Registruj se')
+    },
+    methods: {
+      prijava(){
+        if(this.$store.state.korisnik.email===this.email && this.$store.state.korisnik.password === this.password){
+          this.$nextTick(() => {
+          alert("Uspešno ste se prijavili")
+          });
+          
+          this.MUTATION_LOGIN('Odjavi se')
+          this.MUTATION_REGISTRATION('')
+
+          this.$router.push('/') 
+
+        }
+        else{
+          alert("Pogrešan email ili lozinka, pokusajte ponovo")
+        }
+      },
+
+        ...mapMutations([
+            'MUTATION_LOGIN',
+            'MUTATION_REGISTRATION'
+        ]),
+         ...mapActions([
+            
+        ]),
+         ...mapGetters([
+
+        ]),
+        ...mapState([
+            'korisnik',
+            'login',
+            'registration'
+        ]),
+        
     }
   }
 </script>

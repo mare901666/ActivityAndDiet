@@ -7,7 +7,7 @@
      <img src="./mare.png" height="500" width="250">
   </div>
   <h2>Email: mare160696@gmail.com</h2> 
-  <h2>Telefon: 0644402202</h2> 
+  <h2>Telefon: +381644402202</h2> 
   </div>
 </template>
 

@@ -7,7 +7,7 @@
       selectable
       :select-mode="selectMode"
       selected-variant="success"
-      :items="this.info.data.data"
+      :items="foodstaffStore"
       :fields="fields"
       @row-selected="onRowSelected"
       responsive="sm"
@@ -24,64 +24,47 @@
         </template>
       </template>
     </b-table>
-    <div  v-if="selected">
-      <b-button size="sm" @click="addActivity">Dodaj odabranu aktivnost</b-button>
-      <input v-model="value" placeholder="vreme u minutima" type="number" name="minuts" min="1" max="2000"> u minutima
+     <div  v-if="selected">
+      <b-button size="sm" @click="addFoodstuff">Obriši</b-button>
       </div>
-  <div class="overflow-auto">
-    <b-pagination 
-      v-model="currentPage"
-      align="center" 
-      size="md" 
-      :total-rows="rows" 
-      :per-page="perPage"
-      @input="next"
-    ></b-pagination>
-    </div>
-
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 import { mapState, mapMutations } from 'vuex'
 
   export default {
     data() {
       return {
-        value: 60,
-        rows: 5,
+        value: 100,
+        rows: 13,
         perPage: 5,
         currentPage: 1,
         info: [],
         modes: ['multi', 'single', 'range'],
         fields: [
-          {          
-            key: 'selected',
-            label: 'Izabrano'
+          {
+            key: 'name',
+            label: 'Naziv'
           },
           {
-           key: 'name',
-           label: "Aktivnost" 
-          },
-          {
-           key: 'caloriesBurnedHour',
-           label: 'Potrošene kalorije za sat vremena'
+            key: 'grams',
+            label: 'Količina u gramima'
           }
         ],
         selectMode: 'single',
         selected: null,
-        small: true,
-        foods: [{ text: 'Izaberi sort', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+        small: true
       }
     },
     methods: {
       ...mapMutations([
-          'ADD_ACTIVITY'
+          'ADD_FOODSTAFF'
       ]),
-      addActivity: function() {
-        this.selected[0]['minutes'] = this.value
-        this.ADD_ACTIVITY(this.selected[0])
+      addFoodstuff: function() {
+        this.selected[0]['grams'] = this.value
+        this.ADD_FOODSTAFF(this.selected[0])
         this.selected = null
       },
       onRowSelected(items) {
@@ -93,12 +76,12 @@ import { mapState, mapMutations } from 'vuex'
     },
     mounted () {
       axios
-      .get('http://127.0.0.1:5001/api/Aktivnosti')
+      .get('http://127.0.0.1:5001/api/Namirnice?pagesize=10')
       .then(response => { this.info = response })
     },
     computed: {
         ...mapState([
-          'activityStore'
+          'foodstaffStore'
         ])
     }
   }

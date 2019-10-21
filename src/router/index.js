@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import About from '@/components/About'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Registration from '@/components/Registration'
+import Running from '@/components/Running'
+import Pregled from '@/components/Pregled'
 
 
 Vue.use(Router)
@@ -22,22 +23,22 @@ export default new Router({
       component: About
     },
     {
-      path: '/analytic',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/pregled',
+      name: 'Pregled',
+      component: Pregled
     },
     {
       path: '/running',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Running',
+      component: Running
     },
     {
-      path: '/login',
+      path: '/prijava',
       name: 'Login',
       component: Login
     },
     {
-      path: '/registration',
+      path: '/registracija',
       name: 'Registration',
       component: Registration
     }
